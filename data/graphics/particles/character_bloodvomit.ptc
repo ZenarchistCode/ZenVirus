@@ -1,0 +1,51 @@
+EffectDef {
+ Emitors {
+  EmitorDef vomit {
+   ShapeType Box
+   ShapeSize 0.015 0 0.015
+   MaxNum 999
+   BirthRate 500
+   Offset 0 0.1 0
+   Angles 0 0 0
+   Material "{03BF5B947463775D}graphics/particles/materials/enviroment/blood_red_02.emat"
+   CenterX 0
+   ScaleX 0.329
+   SizeMultiplier 0.1
+   SizeRND 0.3
+   RandomRotDir 1
+   RotMultiplier 0
+   VelAngle 1
+   RandomAngle 1
+   Sort 0
+   Velocity 0
+   VelocityRND 3
+   VelAffect 1
+   GravityMultiply 1
+   LifeTime 1
+   LifeTimeRND 0
+   Color {
+    0 0.2905 0.3322 0.1959 1 0.1879 0.1904 0.1469
+   }
+   Alpha {
+    0 1 0.56622 1 1 0
+   }
+   Size {
+    0 0.27848 0.125 0.4 1 1
+   }
+   EffectTime 5
+   Repeat 0
+   ColorMast {
+    0 0.5873 0.0633 0.0949 0.1531 0.6105 0.0823 0.0316 0.2769 0.3861 0 0 1 0.5442 0 0
+   }
+   SizeMast {
+    0 1 0.05878 0.87805 0.13765 0.59146 0.2939 0.32927 1 0.26829
+   }
+   BRateMast {
+    0 1 0.06324 0.65244 0.1317 0.60366 0.22396 0.5061 0.50967 0.20732 0.8869 0.13415 1 0.14024
+   }
+   VelocityMast {
+    0 0.62195 0.04911 0.62805 0.12723 0.55488 0.29315 0.30488 1 0
+   }
+  }
+ }
+}

@@ -1,0 +1,174 @@
+EffectDef {
+ Emitors {
+  EmitorDef emitor1_pulsating {
+   ShapeType Sphere
+   ShapeSize 0.03 0 0
+   ConeAngle 360 0 60
+   MaxNum 200
+   BirthRate 50
+   BirthRateRND 150
+   BirthRateVel 200
+   Angles 0 -90 0
+   LocalTransform 0
+   Material "{5A939336004F3C25}graphics/particles/materials/character/blood_01.emat"
+   CenterX 0
+   ScaleX 0.629
+   SizeMultiplier 0.7
+   SizeRND 2
+   RandomRotDir 1
+   RotMultiplier 0
+   VelAngle 1
+   RandomAngle 1
+   Sort 0
+   Velocity 3
+   VelocityRND 1
+   VelAffect 1
+   GravityMultiply 3
+   GravityMultiplyRND 1
+   AnimOnce 1
+   LifeTime 0.3
+   LifeTimeRND 0.3
+   Color {
+    0 0.3228 0 0 1 0 0 0
+   }
+   Alpha {
+    0 0 0.125 0.45 1 0
+   }
+   Size {
+    0 0 0.125 0.4 1 1
+   }
+   EffectTime 5
+   Repeat 0
+   ColorMast {
+    0 0.481 0 0 0.1408 0.6076 0 0 0.5369 0.5886 0.1139 0.1392 1 0.5633 0 0
+   }
+   AlphaMast {
+    0 1 1 0.03797
+   }
+   SizeMast {
+    0 0.14557 0.17202 0.48734 0.35261 0.45513 0.5346 1 0.69 1 1 0
+   }
+   BRateMast {
+    0 0.06962 0.1087 0.84177 0.19471 0 0.2656 0.89873 0.49622 1 0.70794 0.62025 0.79206 0.97468 1 0.00633
+   }
+   VelocityMast {
+    0 0 0.17712 0.79114 0.36531 0.56962 0.53025 0.41139 0.57372 1 0.73157 0.29114 1 0
+   }
+  }
+  EmitorDef emitor1_continuos {
+   ShapeType Sphere
+   ShapeSize 0.03 0 0
+   ConeAngle 360 0 60
+   MaxNum 200
+   BirthRate 50
+   BirthRateRND 150
+   BirthRateVel 200
+   Angles 0 -90 0
+   LocalTransform 0
+   Material "{5A939336004F3C25}graphics/particles/materials/character/blood_01.emat"
+   CenterX 0
+   ScaleX 0.413
+   ScaleY 1
+   SizeMultiplier 0.7
+   SizeRND 1
+   RandomRotDir 1
+   RotMultiplier 0
+   VelAngle 1
+   RandomAngle 1
+   Sort 0
+   BillboardingType Full
+   Velocity 3
+   VelocityRND 0.1
+   VelAffect 1
+   GravityMultiply 3
+   GravityMultiplyRND 1
+   AnimOnce 1
+   LifeTime 0.3
+   LifeTimeRND 0.2
+   Color {
+    0 0.6203 0 0 1 0 0 0
+   }
+   Alpha {
+    0 0 0.125 0.45 1 0
+   }
+   Size {
+    0 0 0.125 0.4 0.66352 1 1 0
+   }
+   EffectTime 5
+   Repeat 0
+   ColorMast {
+    0 0.5443 0.0886 0 0.1692 0.1899 0 0.0253 0.5463 0.3987 0.0063 0 1 0.3608 0 0
+   }
+   AlphaMast {
+    0 1 0.33333 1 0.5 0.6 0.66919 0.5443 1 0
+   }
+   SizeMast {
+    0 0.12025 0.07657 0.23418 0.19943 0.48101 0.35261 0.45513 0.55198 0.77848 0.69 1 1 0
+   }
+   BRateMast {
+    0 0.09494 0.45274 0.94304 0.72306 0.66456 0.79962 1 1 0.10127
+   }
+   VelocityMast {
+    0 0 0.18635 0.75316 0.36347 0.46835 0.52363 0.46835 0.59168 1 0.68336 0.12658 1 0
+   }
+  }
+  EmitorDef emitor1_continuos_cloned {
+   ShapeType Sphere
+   ShapeSize 0.03 0 0
+   ConeAngle 360 0 90
+   MaxNum 200
+   BirthRate 50
+   BirthRateRND 200
+   BirthRateVel 200
+   Angles 0 -90 0
+   LocalTransform 0
+   Material "{118F069016CE1546}graphics/particles/materials/enviroment/stones.emat"
+   CenterX 0
+   ScaleX 1
+   ScaleY 1
+   SizeMultiplier 0.05
+   SizeRND 0.05
+   RandomRotDir 1
+   RotMultiplier 0
+   VelAngle 1
+   RandomAngle 1
+   Sort 0
+   BillboardingType Full
+   Velocity 5
+   VelocityRND 0.1
+   VelAffect 1
+   GravityMultiply 3
+   GravityMultiplyRND 3
+   Restitution 1
+   AnimOnce 1
+   LifeTime 0.3
+   LifeTimeRND 0.2
+   Color {
+    0 1 0 0 1 0 0 0
+   }
+   Alpha {
+    0 0 0.125 0.45 1 0
+   }
+   Size {
+    0 0 0.125 0.4 0.65217 1 1 0
+   }
+   EffectTime 5
+   Repeat 0
+   ColorMast {
+    0 0.0823 0 0.1835 0.2042 0.2658 0 0 0.5369 0.4241 0 0.0127 1 0.2468 0 0.0633
+   }
+   AlphaMast {
+    0 1 0.33333 1 0.5 0.6 0.67675 0.43038 1 0
+   }
+   SizeMast {
+    0 0.12025 0.07657 0.23418 0.19943 0.48101 0.35261 0.45513 0.55198 0.77848 0.69 1 1 0
+   }
+   BRateMast {
+    0 0.38608 0.19565 0.85443 0.69471 0.89873 1 0.13291
+   }
+   VelocityMast {
+    0 0 0.18635 0.75316 0.3724 0.68987 0.54348 0.60759 0.59924 1 0.70321 0.3481 1 0.06329
+   }
+  }
+ }
+}

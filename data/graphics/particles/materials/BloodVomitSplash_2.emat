@@ -1,0 +1,5 @@
+Particle {
+ AlbedoMap "{3139647BD4D3F1B1}VIRUS/graphics/particles/sprites/bloodsplash_ground_co.edds" 
+ BlendMode ColorModulate
+ CameraBlendFar 0.001
+}

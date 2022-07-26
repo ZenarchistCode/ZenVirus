@@ -1,0 +1,208 @@
+EffectDef {
+ Emitors {
+  EmitorDef splash2 {
+   ShapeType Point
+   ShapeSize 0.3 0.3 0
+   ConeAngle 360 360 360
+   MaxNum 1
+   BirthRate 1
+   BirthRateRND 0
+   Offset 0 0.03 0
+   Angles 164 -90 0
+   LocalTransform 0
+   Material "{665395FED7EA55A0}VIRUS/graphics/particles/materials/BloodVomitSplash_2.emat"
+   CenterX 0
+   CenterY 0
+   ScaleX 1
+   SizeMultiplier 1.5
+   SizeRND 2
+   RandomRotDir 1
+   RotMultiplier 0
+   StretchMultiplier 1
+   StreakFullUV 0
+   RandomAngle 0
+   BillboardingType None
+   Velocity 0
+   VelocityRND 0
+   AirResistance 0
+   GravityMultiply 0
+   GravityMultiplyRND 0
+   AnimOnce 0
+   AnimFPS 2
+   LifetimeByAnim 0
+   RandomFrame 0
+   LifeTime 300
+   LifeTimeRND 0
+   Color {
+    0 1 0.9557 0.2595 1 1 1 0.3418
+   }
+   Alpha {
+    0 1 0.87723 1 1 0
+   }
+   RotationSpeed {
+    0 0 1 0
+   }
+   Size {
+    0 1 1 1
+   }
+   EffectTime 1
+   Repeat 0
+   SizeMast {
+    0 1 1 1
+   }
+  }
+  EmitorDef splash2_cloned {
+   ShapeType Point
+   ShapeSize 0.3 0.3 0
+   ConeAngle 360 360 360
+   MaxNum 1
+   BirthRate 1
+   BirthRateRND 0
+   Offset 0 0.03 0
+   Angles 24 -90 0
+   LocalTransform 0
+   Material "{665395FED7EA55A0}VIRUS/graphics/particles/materials/BloodVomitSplash_2.emat"
+   CenterX 0
+   CenterY 0
+   ScaleX 1
+   SizeMultiplier 2
+   SizeRND 2
+   RandomRotDir 1
+   RotMultiplier 0
+   StretchMultiplier 1
+   StreakFullUV 0
+   RandomAngle 0
+   BillboardingType None
+   Velocity 0
+   VelocityRND 0
+   AirResistance 0
+   GravityMultiply 0
+   GravityMultiplyRND 0
+   AnimOnce 0
+   AnimFPS 1
+   LifetimeByAnim 0
+   RandomFrame 0
+   LifeTime 300
+   LifeTimeRND 0
+   Color {
+    0 1 0.9557 0.2595 1 1 1 0.3418
+   }
+   Alpha {
+    0 0.4557 0.07467 1 0.87723 1 1 0
+   }
+   RotationSpeed {
+    0 0 1 0
+   }
+   Size {
+    0 1 1 1
+   }
+   EffectTime 1
+   Repeat 0
+   SizeMast {
+    0 1 1 1
+   }
+  }
+  EmitorDef splash2_cloned_cloned {
+   ShapeType Point
+   ShapeSize 0.3 0.3 0
+   ConeAngle 360 360 360
+   MaxNum 1
+   BirthRate 1
+   BirthRateRND 0
+   Offset 0 0.03 0
+   Angles -97.99999 -90 -130.99998
+   LocalTransform 0
+   Material "{665395FED7EA55A0}VIRUS/graphics/particles/materials/BloodVomitSplash_2.emat"
+   CenterX 0
+   CenterY 0
+   ScaleX 1
+   SizeMultiplier 2.5
+   SizeRND 2
+   RandomRotDir 1
+   RotMultiplier 0
+   StretchMultiplier 1
+   StreakFullUV 0
+   RandomAngle 0
+   BillboardingType None
+   Velocity 0
+   VelocityRND 0
+   AirResistance 0
+   GravityMultiply 0
+   GravityMultiplyRND 0
+   AnimOnce 0
+   AnimFPS 1
+   LifetimeByAnim 0
+   RandomFrame 0
+   LifeTime 300
+   LifeTimeRND 0
+   Color {
+    0 1 0.9557 0.2595 1 1 1 0.3418
+   }
+   Alpha {
+    0 0.41772 0.07656 1 0.87723 1 1 0
+   }
+   RotationSpeed {
+    0 0 1 0
+   }
+   Size {
+    0 1 1 1
+   }
+   EffectTime 1
+   Repeat 0
+   SizeMast {
+    0 1 1 1
+   }
+  }
+  EmitorDef splash2_cloned_cloned_cloned {
+   ShapeType Point
+   ShapeSize 0.3 0.3 0
+   ConeAngle 360 360 360
+   MaxNum 1
+   BirthRate 1
+   BirthRateRND 0
+   Offset 0 0.03 0
+   Angles 112 -90 0
+   LocalTransform 0
+   Material "{665395FED7EA55A0}VIRUS/graphics/particles/materials/BloodVomitSplash_2.emat"
+   CenterX 0
+   CenterY 0
+   ScaleX 1
+   SizeMultiplier 2.5
+   SizeRND 2
+   RandomRotDir 1
+   RotMultiplier 0
+   StretchMultiplier 1
+   StreakFullUV 0
+   RandomAngle 0
+   BillboardingType None
+   Velocity 0
+   VelocityRND 0
+   AirResistance 0
+   GravityMultiply 0
+   GravityMultiplyRND 0
+   AnimOnce 0
+   AnimFPS 1
+   LifetimeByAnim 0
+   RandomFrame 0
+   LifeTime 300
+   LifeTimeRND 0
+   Color {
+    0 1 0.9557 0.2595 1 1 1 0.3418
+   }
+   Alpha {
+    0 0.46203 0.08885 1 0.87723 1 1 0
+   }
+   RotationSpeed {
+    0 0 1 0
+   }
+   Size {
+    0 1 1 1
+   }
+   EffectTime 1
+   Repeat 0
+   SizeMast {
+    0 1 1 1
+   }
+  }
+ }
+}
