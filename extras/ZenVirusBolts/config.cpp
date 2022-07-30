@@ -38,6 +38,27 @@ class CfgMods
 	};
 };
 
+class CfgVehicles
+{
+	class Inventory_Base;
+	class Zen_Virus_PathogenVial : Inventory_Base
+	{
+		scope = 2;
+		displayName = "$STR_ZEN_VIRUS_PATHOGENVIAL";
+		descriptionShort = "$STR_ZEN_VIRUS_PATHOGENVIAL_DESC";
+		model = "\dz\gear\medical\InjectionVial.p3d";
+		itemSize[] = { 2,2 };
+		weight = 50;
+		lootCategory = "Medical";
+		stackedUnit = "percentage";
+		quantityBar = 1;
+		varQuantityInit = 100;
+		varQuantityMin = 0;
+		varQuantityMax = 100;
+		hiddenSelections[] = { "zbytek" };
+		hiddenSelectionsTextures[] = { "ZenVirus\data\textures\Ragevirusvial_co.paa","ZenVirus\data\textures\Ragevirusvial_co.paa","ZenVirus\data\textures\Ragevirusvial_co.paa" };
+	};
+};
 
 class cfgWeapons
 {

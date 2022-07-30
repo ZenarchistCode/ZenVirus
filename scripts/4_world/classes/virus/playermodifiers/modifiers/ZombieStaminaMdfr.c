@@ -11,7 +11,7 @@ class ZombieStaminaMdfr : ModifierBase
 
 	override bool ActivateCondition(PlayerBase player)
 	{
-		return GetZenVirusConfig().StageGivesBoostedStamina != 0 && player.GetSingleAgentCountNormalized(VirusAgents.VIRUS) >= GetZenVirusConfig().StageGivesBoostedStamina;
+		return GetZenVirusConfig().StageGivesBoostedStamina != 0 && player.GetSingleAgentCountNormalized(VirusAgents.VIRUS) >= GetZenVirusConfig().StageGivesBoostedStamina && !player.GetModifiersManager().IsModifierActive(eModifiers.MDF_EPINEPHRINE);
 	}
 
 	override bool DeactivateCondition(PlayerBase player)
