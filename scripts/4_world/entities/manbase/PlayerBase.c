@@ -304,21 +304,20 @@ modded class PlayerBase
 	// Check for zombie hits (or infected animals) - only infect player if they are not already infected
 	override void EEHitBy(TotalDamageResult damageResult, int damageType, EntityAI source, int component, string dmgZone, string ammo, vector modelPos, float speedCoef)
 	{
-		if (HasVirus()) // Don't add more virus if we're already infected
+		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
+
+		if (source && source.IsZombie() && HasVirus()) // Don't add more virus if we're already infected
 		{
 			// Do this first - that way player only gets wound infection if hit AFTER they are made to bleed by super.EEHitBy()
-			if (GetSingleAgentCount(eAgents.WOUND_AGENT) <= 0 && GetBleedingManagerServer().m_BleedingSources.Count() > 0 && Math.RandomFloat01() < GetZenVirusConfig().ChanceOfWoundInfectionBleed)
+			if (GetSingleAgentCount(eAgents.WOUND_AGENT) <= 0 && GetBleedingManagerServer() && GetBleedingManagerServer().m_BleedingSources.Count() > 0 && Math.RandomFloat01() < GetZenVirusConfig().ChanceOfWoundInfectionBleed)
 			{
 				this.InsertAgent(eAgents.WOUND_AGENT, 1);
 				ZV_SendMessageDebug("Inserted wound infection due to bleeding scratch - Count=" + GetSingleAgentCount(eAgents.WOUND_AGENT));
 			}
-
-			super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
-			return;
 		}
 
-		// Do this first - that way player only gets wound infection if hit AFTER they are made to bleed by super.EEHitBy()
-		if (GetSingleAgentCount(eAgents.WOUND_AGENT) <= 0 && GetBleedingManagerServer().m_BleedingSources.Count() > 0 && Math.RandomFloat01() < GetZenVirusConfig().ChanceOfWoundInfectionBleed)
+		// If player is bleeding, inject wound agent
+		if (source && source.IsZombie() && GetSingleAgentCount(eAgents.WOUND_AGENT) <= 0 && GetBleedingManagerServer() && GetBleedingManagerServer().m_BleedingSources.Count() > 0 && Math.RandomFloat01() < GetZenVirusConfig().ChanceOfWoundInfectionBleed)
 		{
 			this.InsertAgent(eAgents.WOUND_AGENT, 1);
 			ZV_SendMessageDebug("Inserted wound infection due to bleeding scratch - Count=" + GetSingleAgentCount(eAgents.WOUND_AGENT));
@@ -375,8 +374,6 @@ modded class PlayerBase
 				ZV_SendMessageDebug("Inserted virus agent due to infected creature - Count=" + GetSingleAgentCount(VirusAgents.VIRUS) + "/1000");
 			}
 		}
-
-		super.EEHitBy(damageResult, damageType, source, component, dmgZone, ammo, modelPos, speedCoef);
 	}
 
 	// Include vomiting blood from zombie virus as particle effect

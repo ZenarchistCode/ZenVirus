@@ -10,7 +10,7 @@ modded class ZombieBase
 		{
 			this.SetHealth(this.GetHealth() - 120);
 
-			if (this.GetHealth() > 0 && !this.GetType().Contains("ZmbM_DH_Master_")) // DOn't allow zombie horde master to be poisoned as it'll make him too easy.
+			if (this.GetHealth() > 0 && !this.GetType().Contains("ZmbM_DH_Master_")) // Don't allow zombie horde master to be poisoned as it'll make him too easy.
 			{
 				if (!m_PoisonTimer)
 					m_PoisonTimer = new Timer();
