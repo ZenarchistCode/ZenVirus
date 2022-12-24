@@ -15,7 +15,7 @@ class ActionInjectVirusCureTarget : ActionInjectTarget
 				droppedItem.SetHealth("", "Health", 1);
 			}
 
-			ntarget.ZV_SendMessage(GetZenVirusConfig().Tip7);
+			ntarget.ZV_SendMessage(GetZenVirusConfig().Tip8);
 			return;
 		}
 

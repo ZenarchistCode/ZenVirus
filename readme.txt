@@ -94,6 +94,8 @@ You can repack this mod if you like, and do anything else you want with it for t
 CONFIG EXPLANATIONS:
 
 // Main config data
+ConfigVersion = X; // Don't touch this or it will reset your entire config file. It's for me to update config structure
+VirusAnalysisDelay = 60; // How many seconds it takes to analyze virus (persistent over server restarts)
 VirusTickSecs = 10; // How often the server checks virus levels & symptoms (base level ticks)
 VirusTickSecsRand = 60; // How often the server checks virus levels & symptoms (randomly added to base level ticks to give symptoms a more random nature)
 VirusAddPerSecond = 0.05; // 0.05 sec/1000 max = ~5.5 hours until full infection & death. Increase this to infect faster, decrease to infect slower.
@@ -123,13 +125,14 @@ FoodVirus = { "radioactive", "add_bad_food_types_shere" }; // These food types g
 
 // Config for survival tips
 SurvivalTipChance = 0.05; // Percent chance of the server sending a survival tip message along with a symptom
-Tip1 = "I definitely have the virus... I need to cut open a zombie to get an infected brain so I can make a cure...";
-Tip2 = "I definitely have the virus... I need to find a microscope so I can engineer a cure. Maybe I'll find one at a hospital...";
-Tip3 = "I definitely have the virus... I need to find a petridish so I can engineer a cure. Maybe I'll find one at a hospital...";
-Tip4 = "I definitely have the virus... I need to find an empty syringe so I can engineer a cure. Maybe I'll find one at a hospital...";
-Tip5 = "I definitely have the virus... I need to get my hands on a full blood bag so I can engineer a cure...";
-Tip6 = "I have everything I need to cure the virus... I just need to attach them to the microscope...";
-Tip7 = "I don't think the cure worked. I might be too infected to be cured...";
+"Tip1": "I don't feel so good... I think I might have caught a virus from the infected...",
+"Tip2": "I definitely have the virus... I need to cut open a zombie to get an infected brain so I can make a cure...",
+"Tip3": "I definitely have the virus... I need to find a microscope so I can engineer a cure. Maybe I'll find one at a hospital...",
+"Tip4": "I definitely have the virus... I need to find a petridish so I can engineer a cure. Maybe I'll find one at a hospital...",
+"Tip5": "I definitely have the virus... I need to find an empty syringe so I can engineer a cure. Maybe I'll find one at a hospital...",
+"Tip6": "I definitely have the virus... I need to get my hands on a full blood bag so I can engineer a cure...",
+"Tip7": "I have everything I need to cure the virus... I just need to attach them to the microscope...",
+"Tip8": "I don't think the cure worked. I might be too infected to be cured...",
 
 // Config for virus stages
 Stage1 = 0.1; // Stage 1 infection 10%

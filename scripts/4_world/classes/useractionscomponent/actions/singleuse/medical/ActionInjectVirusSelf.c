@@ -10,7 +10,7 @@ class ActionInjectVirusSelf : ActionInjectSelf
 		action_data.m_Player.InsertAgent(VirusAgents.VIRUS, GetZenVirusConfig().VirusInjectorAmount);
 
 		// Drop used syringe
-		ItemBase junk = ItemBase.Cast(GetGame().CreateObjectEx("Syringe", action_data.m_Player.GetPosition(), ECE_PLACE_ON_SURFACE));
+		ItemBase junk = ItemBase.Cast(GetGame().CreateObjectEx("Zen_Virus_Injector_Empty", action_data.m_Player.GetPosition(), ECE_PLACE_ON_SURFACE));
 		if (junk)
 		{
 			junk.SetHealth("", "Health", 1);

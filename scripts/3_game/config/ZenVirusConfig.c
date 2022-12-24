@@ -2,10 +2,15 @@ class ZenVirusConfig
 {
 	// Config location
 	private const static string zenModFolder = "$profile:\\Zenarchist\\";
-	private const static string zenConfigName = "ZenVirusConfig_v2.json";
+	private const static string zenConfigName = "ZenVirusConfig.json";
+
+	// Static constant config version (is NOT saved to json)
+	static const string CONFIG_VERSION = "1";
 
 	// Main config data
+	string ConfigVersion = "";
 	string CONFIG_MAIN = "-----------------------------------------------------------------------------------------------------------------------";
+	int VirusAnalysisDelay = 60; // How long it takes in seconds for the virus to be analyzed by the microscope
 	int VirusTickSecs = 10; // How often the server checks virus levels & symptoms (base level ticks)
 	int VirusTickSecsRand = 60; // How often the server checks virus levels & symptoms (randomly added to base level ticks)
 	float VirusAddPerSecond = 0.05; // How much virus agent to add to the player each second they're infected. 0.05 sec/1000 max = ~5.5 hours until full infection & death.
@@ -31,13 +36,14 @@ class ZenVirusConfig
 	ref TStringArray FoodVirus = { "radioactive", "add_bad_food_types_shere" }; // These food types guarantee a high infection chance when consumed
 	string CONFIG_TIPS = "-----------------------------------------------------------------------------------------------------------------------";
 	float SurvivalTipChance = 0.05; // Percent chance of the server sending a survival tip message along with a symptom
-	string Tip1 = "I definitely have the virus... I need to cut open a zombie to get an infected brain so I can make a cure...";
-	string Tip2 = "I definitely have the virus... I need to find a microscope so I can engineer a cure. Maybe I'll find one at a hospital...";
-	string Tip3 = "I definitely have the virus... I need to find a petridish so I can engineer a cure. Maybe I'll find one at a hospital...";
-	string Tip4 = "I definitely have the virus... I need to find an empty syringe so I can engineer a cure. Maybe I'll find one at a hospital...";
-	string Tip5 = "I definitely have the virus... I need to get my hands on a full blood bag so I can engineer a cure...";
-	string Tip6 = "I have everything I need to cure the virus... I just need to attach them to the microscope...";
-	string Tip7 = "I don't think the cure worked. I might be too infected to be cured...";
+	string Tip1 = "I don't feel so good... I think I might have caught a virus from the infected...";
+	string Tip2 = "I definitely have the virus... I need to cut open a zombie to get an infected brain so I can make a cure...";
+	string Tip3 = "I definitely have the virus... I need to find a microscope so I can engineer a cure. Maybe I'll find one at a hospital...";
+	string Tip4 = "I definitely have the virus... I need to find a petridish so I can engineer a cure. Maybe I'll find one at a hospital...";
+	string Tip5 = "I definitely have the virus... I need to find an empty syringe so I can engineer a cure. Maybe I'll find one at a hospital...";
+	string Tip6 = "I definitely have the virus... I need to get my hands on a full blood bag so I can engineer a cure...";
+	string Tip7 = "I have everything I need to cure the virus... I just need to attach them to the microscope...";
+	string Tip8 = "I don't think the cure worked. I might be too infected to be cured...";
 	string CONFIG_STAGES = "---------------------------------------------------------------------------------------------------------------------";
 	float Stage1 = 0.1; // Stage 1 infection %
 	float Stage2 = 0.25; // Stage 2 infection % - triggers new symptoms
@@ -72,29 +78,43 @@ class ZenVirusConfig
 	int VirusActivateAmount = 100; // Minimum virus agent count (don't touch unless you know what you're doing with DayZ virus invasibility etc)
 	int VirusDeactivateAmount = 100; // Deactivation virus agent count (don't touch unless you know what you're doing with DayZ virus invasibility etc)
 	bool DebugOn = false; // Turns debug messages on/off
+	string STATIC_MICROSCOPES = "-----------------------------------------------------------------------------------------------------------------";
+	ref array<ref ZenMicroscope> StaticMicroscopes = new ref array<ref ZenMicroscope>;
 
 	// Load config file or create default file if config doesn't exsit
 	void Load()
 	{
-		if (GetGame().IsServer())
-		{
-			if (FileExist(zenModFolder + zenConfigName))
-			{ // If config exists, load file
-				JsonFileLoader<ZenVirusConfig>.JsonLoadFile(zenModFolder + zenConfigName, this);
-			}
-			else // Config file does not exist, create default file
+		if (FileExist(zenModFolder + zenConfigName))
+		{ 
+			// If config exists, load file
+			JsonFileLoader<ZenVirusConfig>.JsonLoadFile(zenModFolder + zenConfigName, this);
+
+			// If version mismatch, backup old version of json before replacing it
+			if (ConfigVersion != CONFIG_VERSION)
 			{
-				// Save config
-				Save();
+				JsonFileLoader<ZenVirusConfig>.JsonSaveFile(zenModFolder + zenConfigName + "_old", this);
+			}
+			else
+			{
+				// Config exists and version matches, stop here.
+				return;
 			}
 		}
+
+		// Config file does not exist, create default file
+		ConfigVersion = CONFIG_VERSION;
+		StaticMicroscopes.Insert(new ZenMicroscope("Example", "0 0 0", "0 0 0"));
+
+		// Save file
+		Save();
 	}
 
 	// Save config
 	void Save()
 	{
 		if (!FileExist(zenModFolder))
-		{ // If config folder doesn't exist, create it.
+		{ 
+			// If config folder doesn't exist, create it.
 			MakeDirectory(zenModFolder);
 		}
 
@@ -103,13 +123,27 @@ class ZenVirusConfig
 	}
 }
 
+class ZenMicroscope
+{
+	string Name;
+	vector Location;
+	vector Orientation;
+
+	void ZenMicroscope(string p_Name, vector p_Location, vector p_Orientation)
+	{
+		Name = p_Name;
+		Location = p_Location;
+		Orientation = p_Orientation;
+	}
+};
+
 // Save config data
 ref ZenVirusConfig m_ZenVirusConfig;
 
 // Helper function to return Config data storage object
 static ZenVirusConfig GetZenVirusConfig()
 {
-	if (!m_ZenVirusConfig)
+	if (!m_ZenVirusConfig && GetGame().IsDedicatedServer())
 	{
 		Print("[ZenVirusConfig] Init");
 		m_ZenVirusConfig = new ZenVirusConfig;

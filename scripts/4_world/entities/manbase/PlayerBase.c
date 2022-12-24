@@ -496,38 +496,38 @@ modded class PlayerBase
 	{
 		if (GetSingleAgentCountNormalized(VirusAgents.VIRUS) <= 0.2)
 		{
-			ZV_SendMessage("I don't feel so good... I think I might have caught a virus from the infected...");
+			ZV_SendMessage(GetZenVirusConfig().Tip1);
 			return;
 		}
 
 		array<string> tips = new array<string>;
 		if (!HasItemType("Zen_Virus_Brain") && m_lastTip != GetZenVirusConfig().Tip1)
 		{
-			tips.Insert(GetZenVirusConfig().Tip1);
+			tips.Insert(GetZenVirusConfig().Tip2);
 		}
 		else
 		if (!HasItemType("Zen_Virus_Cure_Microscope") && m_lastTip != GetZenVirusConfig().Tip2)
 		{
-			tips.Insert(GetZenVirusConfig().Tip2);
+			tips.Insert(GetZenVirusConfig().Tip3);
 		}
 		else
 		if (!HasItemType("Zen_Virus_Cure_Petridish") && m_lastTip != GetZenVirusConfig().Tip3)
 		{
-			tips.Insert(GetZenVirusConfig().Tip3);
+			tips.Insert(GetZenVirusConfig().Tip4);
 		}
 		else
 		if (!HasItemType("Syringe") && m_lastTip != GetZenVirusConfig().Tip4)
 		{
-			tips.Insert(GetZenVirusConfig().Tip4);
+			tips.Insert(GetZenVirusConfig().Tip5);
 		}
 		else
 		if (!HasItemType("BloodBagFull") && m_lastTip != GetZenVirusConfig().Tip5)
 		{
-			tips.Insert(GetZenVirusConfig().Tip5);
+			tips.Insert(GetZenVirusConfig().Tip6);
 		}
 		else
 		{
-			tips.Insert(GetZenVirusConfig().Tip6);
+			tips.Insert(GetZenVirusConfig().Tip7);
 		}
 
 		m_lastTip = tips.GetRandomElement();

@@ -172,10 +172,10 @@ class CfgVehicles
 	class Zen_Virus_Cure_Injector : ZV_Injector_Base
 	{
 		scope = 2;
-		displayName = "Virus Cure";
-		descriptionShort = "A cure for the virus! I should take this if I start to notice strange symptoms like hallucinations.";
+		displayName = "$STR_ZEN_VIRUS_CURE_INJECTOR";
+		descriptionShort = "$STR_ZEN_VIRUS_CURE_INJECTOR_DESC";
 		hiddenSelectionsTextures[] = { "ZenVirus\data\textures\RageCure_1_co.paa","ZenVirus\data\textures\RageCure_1_co.paa","ZenVirus\data\textures\RageCure_1_co.paa" };
-		class Food // To enable "rotting" of virus cure so players can't stockpile them en-masse
+		/*class Food // Todo: enable "rotting" of virus cure so players can't stockpile them en-masse?
 		{
 			class FoodStages
 			{
@@ -196,24 +196,25 @@ class CfgVehicles
 			class FoodStageTransitions : NotCookable
 			{
 			};
-		};
+		};*/
 	};
 	class Zen_Virus_Cure_Injector_Empty : ZV_Injector_Base
 	{
 		scope = 2;
-		displayName = "Empty Virus Cure";
-		descriptionShort = "An empty virus cure syringe. Once it's been used it cannot be used again.";
+		displayName = "$STR_ZEN_VIRUS_CURE_INJECTOR_EMPTY";
+		descriptionShort = "$STR_ZEN_VIRUS_CURE_INJECTOR_EMPTY_DESC";
 		hiddenSelectionsTextures[] = { "ZenVirus\data\textures\RageCure_1_co.paa","ZenVirus\data\textures\RageCure_1_co.paa","ZenVirus\data\textures\RageCure_1_co.paa" };
 	};
 	class Zen_Virus_Injector : Inventory_Base
 	{
 		scope = 2;
-		displayName = "Virus Injector";
-		descriptionShort = "A syringe which appears to contain some sort of virus. I'd better be careful what I do with this...";
+		displayName = "$STR_ZEN_VIRUS_INJECTOR";
+		descriptionShort = "$STR_ZEN_VIRUS_INJECTOR_DESC";
 		itemSize[] = { 1,2 };
-		model = "\dz\gear\medical\syringe_Full.p3d";
-		hiddenSelections[] = { "camo" };
-		hiddenSelectionsTextures[] = { "\dz\gear\medical\data\SyringeFluid_Blood_CO.paa" };
+		model = "\dz\gear\medical\Epinephrine.p3d";
+		hiddenSelections[] = { "zbytek" };
+		hiddenSelectionsTextures[] = { "ZenVirus\data\textures\RageCure_2_co.paa","ZenVirus\data\textures\RageCure_2_co.paa","ZenVirus\data\textures\RageCure_2_co.paa" };
+
 		class DamageSystem
 		{
 			class GlobalHealth
@@ -289,11 +290,18 @@ class CfgVehicles
 			};
 		};
 	};
+	class Zen_Virus_Injector_Empty : ZV_Injector_Base
+	{
+		scope = 2;
+		displayName = "$STR_ZEN_VIRUS_INJECTOR_EMPTY";
+		descriptionShort = "$STR_ZEN_VIRUS_INJECTOR_EMPTY_DESC";
+		hiddenSelectionsTextures[] = { "ZenVirus\data\textures\RageCure_2_co.paa","ZenVirus\data\textures\RageCure_2_co.paa","ZenVirus\data\textures\RageCure_2_co.paa" };
+	};
 	class Zen_Virus_Cure_Microscope : Inventory_Base
 	{
 		scope = 2;
-		displayName = "Microscope";
-		descriptionShort = "A high-powered microscope. Perhaps I can use this to help me engineer a cure for the virus...";
+		displayName = "$STR_ZEN_VIRUS_CURE_MICROSCOPE";
+		descriptionShort = "$STR_ZEN_VIRUS_CURE_MICROSCOPE_DESC";
 		model = "\dz\structures\furniture\school_equipment\lab_microscope.p3d";
 		itemSize[] = { 3,5 };
 		attachments[] = { "BatteryD", "Material_Petridish", "Material_Brain", "Material_BloodBagFull" };
@@ -302,15 +310,6 @@ class CfgVehicles
 		hiddenSelectionsMaterials[] = { "\DZ\structures\furniture\school_equipment\data\lab_set.rvmat" };
 		repairableWithKits[] = { 7 };
 		repairCosts[] = { 100 };
-		/*class EnergyManager
-		{
-			hasIcon = 1;
-			autoSwitchOffWhenInCargo = 1;
-			energyUsagePerSecond = 0.1;
-			plugType = 1;
-			attachmentAction = 1;
-			updateInterval = 40;
-		};*/
 		class GUIInventoryAttachmentsProps
 		{
 			class Materials
@@ -379,6 +378,20 @@ class CfgVehicles
 			itemsCargoSize[] = { 4,2 }; // 8 slots of storage ONLY for cure/pathogen vials
 			openable = 0;
 			allowOwnedCargoManipulation = 1;
+		};
+	};
+	class Zen_Virus_Cure_Microscope_Static : Zen_Virus_Cure_Microscope
+	{
+		scope = 2;
+		class DamageSystem
+		{
+			class GlobalHealth
+			{
+				class Health
+				{
+					hitpoints = 99999;
+				}
+			}
 		};
 	};
 };

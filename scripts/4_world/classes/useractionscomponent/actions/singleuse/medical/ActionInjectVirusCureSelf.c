@@ -15,7 +15,7 @@ class ActionInjectVirusCureSelf : ActionInjectSelf
 				droppedItem.SetHealth("", "Health", 1);
 			}
 
-			player.ZV_SendMessage(GetZenVirusConfig().Tip7);
+			player.ZV_SendMessage(GetZenVirusConfig().Tip8);
 			return;
 		}
 

@@ -14,7 +14,7 @@ class ActionAnalyseVirus : ActionContinuousBase
 		m_CommandUID = DayZPlayerConstants.CMD_ACTIONFB_CRAFTING;
 		m_FullBody = true;
 		m_StanceMask = DayZPlayerConstants.STANCEMASK_CROUCH;
-		m_Text = "Analyse Virus";
+		m_Text = "#STR_ZEN_ANALYZE_VIRUS";
 	}
 
 	override void CreateConditionComponents()
@@ -56,7 +56,7 @@ class ActionAnalyseVirus : ActionContinuousBase
 			return false;
 		}
 
-		return curemicroscope.HasBloodBagFull() && curemicroscope.HasBrain() && curemicroscope.HasPetridish() && curemicroscope.HasBattery();
+		return curemicroscope.HasRequiredIngredients();
 	}
 
 	override void OnFinishProgressServer(ActionData action_data)
@@ -73,7 +73,7 @@ class ActionAnalyseVirus : ActionContinuousBase
 			}
 
 			action_data.m_Player.ZV_SendMessageDebug("Alright, this might take a few seconds...");
-			curemicroscope.StartAnalysis();
+			curemicroscope.StartAnalysis(GetZenVirusConfig().VirusAnalysisDelay);
 		}
 	}
 };

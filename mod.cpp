@@ -7,4 +7,4 @@ tooltip = "Zenarchist's Virus Mod"; // tool tip on mouse hover
 overview = "Adds a new zombie virus to the game."; // overview
 action = "https://zenarchist.io/"; // link
 author = "Zenarchist"; // author
-version = "1.0"; // version
+version = "1.1"; // version

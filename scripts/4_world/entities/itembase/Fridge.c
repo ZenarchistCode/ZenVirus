@@ -1,3 +1,5 @@
+// Example of adding virus preservation based on MSP Fridge storage
+//
 // UNCOMMENT ALL OF THIS CODE AND RE-PACK IF YOU WANT TO MAKE IT SO VIRUS CURES "ROT" AND YOU NEED TO PUT THEM IN A MUCHSTUFFPACK FRIDGE TO PRESERVE THEM
 // MSP FRIDGE MOD LINK: https://steamcommunity.com/sharedfiles/filedetails/?id=1991570984
 // Don't forget to add this to the config.cpp: requiredAddons[] = { "DZ_Data", "DZ_Scripts", "DZ_Gear_Books", "ZenVirus", "MSP_Storage", };

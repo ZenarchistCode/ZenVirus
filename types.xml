@@ -59,6 +59,10 @@
 		<value name="Tier2"/>
 		<value name="Tier3"/>
     </type>
+	<type name="Zen_Virus_Cure_Microscope_Static"> <!-- Cures the virus - cannot be picked up or moved. Place this using DayZ Editor or ZenVirus.json -->
+        <lifetime>9999999</lifetime>
+        <flags count_in_cargo="0" count_in_hoarder="0" count_in_map="1" count_in_player="0" crafted="1" deloot="0"/>
+    </type>
 	<type name="Syringe"> <!-- Cures the virus -->
         <nominal>18</nominal>
         <lifetime>14400</lifetime>

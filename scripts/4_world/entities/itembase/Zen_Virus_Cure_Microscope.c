@@ -6,66 +6,111 @@ class Zen_Virus_Cure_Microscope : ItemBase
 	const string 				ATTACHMENT_SLOT_BATTERY = "BatteryD";
 	static const string 		MICROSCOPE_ATTACH_SOUND = "sparkplug_attach_SoundSet";
 	static const string 		MICROSCOPE_DETACH_SOUND = "sparkplug_detach_SoundSet";
-	bool m_TurnedOn				= false;
 	bool m_LastState			= false;
 	ChemlightLight 				m_Light;
 	ref Timer					m_AnalyseVirusTimer;
 
+	// Server->client sync
+	bool m_TurnedOn = false;
+	float m_TimeTotal = 0;
+	float m_TimeRemaining = 0;
+	private ref Timer m_LockTimerUpdate;
+
 	void Zen_Virus_Cure_Microscope()
 	{
+		// Register sync vars
 		RegisterNetSyncVariableBool("m_IsSoundSynchRemote");
 		RegisterNetSyncVariableBool("m_IsPlaceSound");
 		RegisterNetSyncVariableBool("m_TurnedOn");
+		RegisterNetSyncVariableFloat("m_TimeTotal");
+		RegisterNetSyncVariableFloat("m_TimeRemaining");
 	}
 
 	void ~Zen_Virus_Cure_Microscope()
 	{
-		if (m_AnalyseVirusTimer)
-		{
+		if (m_AnalyseVirusTimer && m_AnalyseVirusTimer.IsRunning())
 			m_AnalyseVirusTimer.Stop();
-			m_AnalyseVirusTimer = null;
-		}
+
+		if (m_LockTimerUpdate && m_LockTimerUpdate.IsRunning())
+			m_LockTimerUpdate.Stop();
+	}
+
+	// Override name when in use
+	override bool NameOverride(out string output)
+	{
+		if (m_TurnedOn)
+		{
+			float progress = ((m_TimeTotal - m_TimeRemaining) / m_TimeTotal) * 100;
+			string progressStr = MiscGameplayFunctions.TruncateToS(progress);
+
+			if (progressStr.IndexOf(".") > 0)
+				progressStr = progressStr.Substring(0, progressStr.IndexOf("."));
+
+			output = "#STR_ZEN_ANALYZE_VIRUS" + " (" + progressStr + "%)";
+			output.ToUpper();
+			return true;
+		};
+
+		return false;
+	};
+
+	// Allow it to be "placed"
+	override bool IsDeployable()
+	{
+		return true;
+	}
+
+	// Allows for placing
+	override bool IsOneHandedBehaviour()
+	{
+		return true;
+	}
+
+	// Add territory flag persistence
+	override bool IsRefresherSignalingViable()
+	{
+		return !IsRuined();
 	}
 
 	override void OnVariablesSynchronized()
 	{
 		super.OnVariablesSynchronized();
 
-		//GetGame().GetMission().OnEvent(ChatMessageEventTypeID, new ChatMessageEventParams(CCDirect, "", "m_TurnedOn=" + m_TurnedOn + " - LastState=" + m_LastState, ""));
+		if (GetGame().IsDedicatedServer())
+			return;
+
 		if (m_TurnedOn != m_LastState)
 		{
 			m_LastState = m_TurnedOn;
 
-			if (m_TurnedOn) // Microscope just turned on
+			if (m_TurnedOn) 
 			{
-				if (!GetGame().IsServer())
-				{
-					SEffectManager.PlaySound("turnOnRadio_SoundSet", GetPosition());
-				}
-				
-				//CreateLight();
+				// Microscope just turned on
+				SEffectManager.PlaySound("turnOnRadio_SoundSet", GetPosition());
+				CreateLight();
 			}
-			else // Microscope just turned off
+			else 
 			{
-				if (!GetGame().IsServer())
-				{
-					SEffectManager.PlaySound("turnOnRadio_SoundSet", GetPosition());
-				}
+				// Microscope just turned off
+				SEffectManager.PlaySound("turnOnRadio_SoundSet", GetPosition());
 
-				//if (m_Light)
-				//{
-				//	m_Light.FadeOut();
-				//}
+				if (m_Light)
+				{
+					m_Light.FadeOut();
+				}
 			}
 		}
 	}
 
-	// Creates a green glow on the microscope when it's being used (todo: fix, this doesn't work currently for some reason even though it works on other mods I've made)
+	// Creates a green glow on the microscope when it's being used
 	void CreateLight()
 	{
-		m_Light = ChemlightLight.Cast(ScriptedLightBase.CreateLight(ChemlightLight, "0 0 0"));
-		m_Light.AttachOnMemoryPoint(this, "light");
-		m_Light.SetColorToWhite();
+		if (GetGame().IsClient())
+		{
+			m_Light = ChemlightLight.Cast(ScriptedLightBase.CreateLight(ChemlightLight, "0 0 0"));
+			m_Light.AttachOnObject(this, "0 0.2 0");
+			m_Light.SetColorToWhite();
+		}
 	}
 
 	override bool CanReceiveAttachment(EntityAI attachment, int slotId)
@@ -82,7 +127,7 @@ class Zen_Virus_Cure_Microscope : ItemBase
 	{
 		super.EEItemAttached(item, slot_name);
 
-		if (item && !GetGame().IsServer())
+		if (item && !GetGame().IsDedicatedServer())
 		{
 			SEffectManager.PlaySound(MICROSCOPE_ATTACH_SOUND, GetPosition());
 		}
@@ -92,7 +137,7 @@ class Zen_Virus_Cure_Microscope : ItemBase
 	{
 		super.EEItemDetached(item, slot_name);
 
-		if (item && !GetGame().IsServer())
+		if (item && !GetGame().IsDedicatedServer())
 		{
 			SEffectManager.PlaySound(MICROSCOPE_DETACH_SOUND, GetPosition());
 		}
@@ -218,6 +263,11 @@ class Zen_Virus_Cure_Microscope : ItemBase
 		return item && !item.IsRuined();
 	}
 
+	bool HasRequiredIngredients()
+	{
+		return HasBloodBagFull() && HasBrain() && HasPetridish() && HasBattery();
+	}
+
 	void Delete_BloodBag()
 	{
 		ItemBase item = ItemBase.Cast(FindAttachmentBySlotName(ATTACHMENT_SLOT_BLOODBAG));
@@ -250,28 +300,60 @@ class Zen_Virus_Cure_Microscope : ItemBase
 
 	void Ruin_Battery()
 	{
-		ItemBase item = ItemBase.Cast(FindAttachmentBySlotName(ATTACHMENT_SLOT_BATTERY));
+		Battery9V item = Battery9V.Cast(FindAttachmentBySlotName(ATTACHMENT_SLOT_BATTERY));
 
 		if (item)
 		{
-			item.SetQuantity(0);
-			item.SetHealth(0);
+			item.GetCompEM().AddEnergy(-100);
 		}
 	}
 
-	void StartAnalysis()
+	void StartAnalysis(float actionTime)
 	{
-		if (!m_AnalyseVirusTimer)
+		if (!HasRequiredIngredients())
 		{
-			m_AnalyseVirusTimer = new Timer(CALL_CATEGORY_SYSTEM);
+			m_TimeRemaining = 0;
+			SetSynchDirty();
+			return;
 		}
+
+		if (!m_AnalyseVirusTimer)
+			m_AnalyseVirusTimer = new Timer();
 
 		if (!m_AnalyseVirusTimer.IsRunning()) // Make sure the timer is NOT running already
 		{
+			// Begin analysis
 			LockAttachments();
 			m_TurnedOn = true;
+			m_AnalyseVirusTimer.Run(actionTime, this, "AnalyseVirus", NULL, false);
+
+			// Start client updater timer (shows progression client-side)
+			if (!m_LockTimerUpdate)
+				m_LockTimerUpdate = new Timer();
+
+			m_TimeRemaining = actionTime;
+			m_TimeTotal = GetZenVirusConfig().VirusAnalysisDelay;
+			m_LockTimerUpdate.Run(10, this, "UpdateTimer", NULL, true);
+
+			// Sync to client
 			SetSynchDirty();
-			m_AnalyseVirusTimer.Run(Math.RandomIntInclusive(8 ,12), this, "AnalyseVirus", NULL, false);
+		}
+	}
+
+	void UpdateTimer()
+	{
+		m_TimeRemaining = m_TimeRemaining - 10;
+
+		if (m_TimeRemaining <= 0 && m_LockTimerUpdate && m_LockTimerUpdate.IsRunning())
+		{
+			m_TimeRemaining = 0;
+			m_LockTimerUpdate.Stop();
+		}
+
+		// Notify client of progress
+		if (GetGame().IsDedicatedServer())
+		{
+			SetSynchDirty();
 		}
 	}
 
@@ -304,5 +386,59 @@ class Zen_Virus_Cure_Microscope : ItemBase
 
 		m_AnalyseVirusTimer.Stop();
 		m_AnalyseVirusTimer = null;
+	}
+
+	override void SetActions()
+	{
+		super.SetActions();
+
+		AddAction(ActionTogglePlaceObject);
+		AddAction(ActionPlaceObject);
+	}
+
+	// Save microscope state
+	override void OnStoreSave(ParamsWriteContext ctx)
+	{
+		super.OnStoreSave(ctx);
+
+		ctx.Write(m_TimeRemaining);
+	}
+
+	// Load microscope state
+	override bool OnStoreLoad(ParamsReadContext ctx, int version)
+	{
+		if (!super.OnStoreLoad(ctx, version))
+			return false;
+
+		if (!ctx.Read(m_TimeRemaining))
+		{
+			m_TimeRemaining = 0;
+		}
+
+		if (m_TimeRemaining > 0)
+		{
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(StartAnalysis, 1000, false, m_TimeRemaining);
+		}
+
+		return true;
+	}
+}
+
+// Static version of microscope which can be spawned/placed by server admin but not touched by player
+class Zen_Virus_Cure_Microscope_Static : Zen_Virus_Cure_Microscope
+{
+	override bool CanPutInCargo(EntityAI parent)
+	{
+		return false;
+	}
+
+	override bool CanPutIntoHands(EntityAI player)
+	{
+		return false;
+	}
+
+	override bool IsRefresherSignalingViable()
+	{
+		return false;
 	}
 }

@@ -11,7 +11,7 @@ class ActionInjectVirusTarget : ActionInjectTarget
 
 		ntarget.InsertAgent(VirusAgents.VIRUS, GetZenVirusConfig().VirusInjectorAmount);
 		// Drop used syringe
-		ItemBase junk = ItemBase.Cast(GetGame().CreateObjectEx("Syringe", ntarget.GetPosition(), ECE_PLACE_ON_SURFACE));
+		ItemBase junk = ItemBase.Cast(GetGame().CreateObjectEx("Zen_Virus_Injector_Empty", ntarget.GetPosition(), ECE_PLACE_ON_SURFACE));
 		if (junk)
 		{
 			junk.SetHealth("", "Health", 1);
