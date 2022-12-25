@@ -17,6 +17,7 @@ modded class JMAnimRegister
 	override void OnRegisterTwoHanded(DayZPlayerType pType, DayzPlayerItemBehaviorCfg pBehavior)
 	{
 		super.OnRegisterTwoHanded(pType, pBehavior);
+
 		pType.AddItemInHandsProfileIK("Zen_Virus_Cure_Microscope", "dz/anims/workspaces/player/player_main/player_main_2h.asi", pBehavior, "dz/anims/anm/player/ik/two_handed/BatteryCar.anm");
 	}
 };
