@@ -40,17 +40,29 @@ class CfgMods
 			class gameScriptModule
 			{
 				value = "";
-				files[] = { "ZenVirus/scripts/3_game"; };
+				files[] = 
+				{ 
+					"ZenVirus/scripts/common",
+					"ZenVirus/scripts/3_game"
+				};
 			};
 			class worldScriptModule
 			{
 				value = "";
-				files[] = { "ZenVirus/scripts/4_World" };
+				files[] = 
+				{ 
+					"ZenVirus/scripts/common",
+					"ZenVirus/scripts/4_world" 
+				};
 			};
 			class missionScriptModule
 			{
 				value = "";
-				files[] = { "ZenVirus/scripts/5_mission" };
+				files[] = 
+				{ 
+					"ZenVirus/scripts/common",
+					"ZenVirus/scripts/5_mission"
+				};
 			};
 		};
 	};
