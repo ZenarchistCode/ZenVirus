@@ -83,7 +83,7 @@ modded class PlayerBase
 
 		if (m_MakeZombieSound != m_LastMakeZombieSound) // Everyone can hear this sound effect if the player is this badly infected
 		{
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Call(this.PlayRandomZombieAngrySound);
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Call(PlayRandomZombieAngrySound);
 			if (m_MakeZombieSound > 10)
 				m_MakeZombieSound = -1;
 		}
@@ -260,6 +260,13 @@ modded class PlayerBase
 	{
 		m_VirusTicks += deltaTime;
 
+		#ifndef SERVER
+		if (IsControlledPlayer())
+		{
+			UpdateZombieVisualEffect();
+		}
+		#endif
+
 		if (m_VirusTicks < m_VirusRandCheck && !m_ForceUpdate)
 		{
 			return;
@@ -269,14 +276,15 @@ modded class PlayerBase
 		m_VirusTicks = 0;
 		m_ForceUpdate = false;
 
-		if (!GetGame().IsServer()) // Client-side - play hallucination sounds if infected
+		if (!GetGame().IsDedicatedServer()) // Client-side - play hallucination sounds if infected
 		{
-			if (HasVirus())
+			if (IsControlledPlayer())
 			{
-				PlayRandomZombieSicknessSound();
+				if (HasVirus())
+				{
+					PlayRandomZombieSicknessSound();
+				}
 			}
-
-			UpdateZombieVisualEffect();
 		}
 		else // Server-side - perform important virus checks on this player
 		{
@@ -548,11 +556,16 @@ modded class PlayerBase
 		}
 		else
 		{
-			if (m_ZombieInfection != -1)
+			if (m_ZombieInfection != -1 && m_ZombieInfection != 0)
 			{
+				//ZenFunctions.DebugMessage("UPDATE ZVIRUS FX");
+				float vignette = m_ZombieInfection;
+				if (vignette > 0 && vignette < 0.6)
+					vignette = 0.6;
+
 				m_StoppedZombieVisualEffect = false;
 				auto requester2 = PPERequester_ZenVirusEffect.Cast(PPERequesterBank.GetRequester(PPERequester_ZenVirusEffect));
-				requester2.ZV_SetEffectValues(m_ZombieInfection);
+				requester2.ZV_SetEffectValues(m_ZombieInfection, vignette);
 			}
 		}
 	}
